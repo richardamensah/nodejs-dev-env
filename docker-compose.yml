@@ -24,6 +24,7 @@ services:
     #command: bash -c "cd /code && npm start"
     command: bash -c "cd /code && node -v && read input_variable"
     #command: bash -c "cd x-spreadsheet && npm install && npm run dev"
+    #command: bash -c "cd x-spreadsheet && npm run dev"
   db:
     image: mongo:latest
     restart: always
