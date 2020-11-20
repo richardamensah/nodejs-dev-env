@@ -1,0 +1,36 @@
+version: "3.3"
+services:
+  node:
+    image: "node:latest" #15.2.1-alpine3.12
+    restart: always
+    tty: true
+    stdin_open: true
+    container_name: rho-node-dev
+    user: "node"
+    working_dir: /code
+    environment:
+      - NODE_ENV=development
+      #- NODE_ENV=production
+    volumes:
+      - ./src/apps:/code
+    expose:
+      - "4001"
+      - "8080"
+    ports:
+      - 4001:4001
+      - 4002:8080
+    depends_on:
+      - db
+    #command: bash -c "cd /code && npm start"
+    command: bash -c "cd /code && node -v && read input_variable"
+    #command: bash -c "cd x-spreadsheet && npm install && npm run dev"
+  db:
+    image: mongo:latest
+    restart: always
+    container_name: rho-mongodb
+    # volumes:
+    #   - ./db/mongodb:/data/db
+    #   - mongodb_config:/data/configdb
+    ports:
+      - 27017:27017
+    command: mongod
